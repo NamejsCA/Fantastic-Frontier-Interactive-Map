@@ -1,0 +1,187 @@
+BirdSpots:
+
+local fileName = "Attachments_BirdSpot_Coordinates.txt"
+local coordinatesData = {}
+
+-- Loop through all the folders in workspace.Spawners
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        -- Loop through each part in the spawner folder
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            -- Check if the part has the "Attachments" folder and a "BirdSpot" inside it
+            if part:IsA("BasePart") and part:FindFirstChild("Attachments") then
+                local attachmentsFolder = part.Attachments
+
+                -- Loop through each "BirdSpot" part inside the "Attachments" folder
+                for _, birdSpot in pairs(attachmentsFolder:GetChildren()) do
+                    if birdSpot:IsA("BasePart") and birdSpot.Name == "BirdSpot" then
+                        -- Get the coordinates of the "BirdSpot" part
+                        local position = birdSpot.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        
+                        -- Store the coordinates in the table
+                        table.insert(coordinatesData, part.Name .. ": " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Write the collected coordinates to a text file
+if #coordinatesData > 0 then
+    local fileContent = table.concat(coordinatesData, "\n")
+    writefile(fileName, fileContent)
+    print("Coordinates saved to " .. fileName)
+else
+    print("No coordinates found to save.")
+end
+
+----------------------------------------------------------------------------------------------------------------
+SpawnLoc:
+
+local fileName = "Locations_SpawnLoc_Coordinates.txt"
+local coordinatesData = {}
+
+-- Loop through all the folders in workspace.Spawners
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        -- Loop through each part in the spawner folder
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            -- Check if the part has the "Locations" folder and a "SpawnLoc" inside it
+            if part:IsA("BasePart") and part:FindFirstChild("Locations") then
+                local locationsFolder = part.Locations
+
+                -- Loop through each "SpawnLoc" part inside the "Locations" folder
+                for _, spawnLoc in pairs(locationsFolder:GetChildren()) do
+                    if spawnLoc:IsA("BasePart") and spawnLoc.Name == "SpawnLoc" then
+                        -- Get the coordinates of the "SpawnLoc" part
+                        local position = spawnLoc.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        
+                        -- Store the coordinates in the table
+                        table.insert(coordinatesData, part.Name .. ": " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Write the collected coordinates to a text file
+if #coordinatesData > 0 then
+    local fileContent = table.concat(coordinatesData, "\n")
+    writefile(fileName, fileContent)
+    print("Coordinates saved to " .. fileName)
+else
+    print("No coordinates found to save.")
+end
+
+----------------------------------------------------------------------------------------------------------------
+SpawnBrick:
+
+local fileName = "SpawnLocations_SpawnBrick_Coordinates.txt"
+local coordinatesData = {}
+
+-- Loop through all the folders in workspace.Spawners
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        -- Loop through each part in the spawner folder
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            -- Check if the part has the "SpawnLocations" folder and a "SpawnBrick" inside it
+            if part:IsA("BasePart") and part:FindFirstChild("SpawnLocations") then
+                local spawnLocationsFolder = part.SpawnLocations
+
+                -- Loop through each "SpawnBrick" part inside the "SpawnLocations" folder
+                for _, spawnBrick in pairs(spawnLocationsFolder:GetChildren()) do
+                    if spawnBrick:IsA("BasePart") and spawnBrick.Name == "SpawnBrick" then
+                        -- Get the coordinates of the "SpawnBrick" part
+                        local position = spawnBrick.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        
+                        -- Store the coordinates in the table
+                        table.insert(coordinatesData, part.Name .. ": " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Write the collected coordinates to a text file
+if #coordinatesData > 0 then
+    local fileContent = table.concat(coordinatesData, "\n")
+    writefile(fileName, fileContent)
+    print("Coordinates saved to " .. fileName)
+else
+    print("No coordinates found to save.")
+end
+
+----------------------------------------------------------------------------------------------------------------
+Everything Together:
+
+local fileName = "All_Coordinates.txt"
+local coordinatesData = {}
+
+-- Script 1: For 'Attachments' folder and 'BirdSpot' parts
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            if part:IsA("BasePart") and part:FindFirstChild("Attachments") then
+                local attachmentsFolder = part.Attachments
+                for _, birdSpot in pairs(attachmentsFolder:GetChildren()) do
+                    if birdSpot:IsA("BasePart") and birdSpot.Name == "BirdSpot" then
+                        local position = birdSpot.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        table.insert(coordinatesData, part.Name .. " (Attachments - BirdSpot): " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Script 2: For 'SpawnLocations' folder and 'SpawnBrick' parts
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            if part:IsA("BasePart") and part:FindFirstChild("SpawnLocations") then
+                local spawnLocationsFolder = part.SpawnLocations
+                for _, spawnBrick in pairs(spawnLocationsFolder:GetChildren()) do
+                    if spawnBrick:IsA("BasePart") and spawnBrick.Name == "SpawnBrick" then
+                        local position = spawnBrick.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        table.insert(coordinatesData, part.Name .. " (SpawnLocations - SpawnBrick): " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Script 3: For 'Locations' folder and 'SpawnLoc' parts
+for _, spawnerFolder in pairs(game.workspace.Spawners:GetChildren()) do
+    if spawnerFolder:IsA("Folder") then
+        for _, part in pairs(spawnerFolder:GetChildren()) do
+            if part:IsA("BasePart") and part:FindFirstChild("Locations") then
+                local locationsFolder = part.Locations
+                for _, spawnLoc in pairs(locationsFolder:GetChildren()) do
+                    if spawnLoc:IsA("BasePart") and spawnLoc.Name == "SpawnLoc" then
+                        local position = spawnLoc.Position
+                        local x, y, z = position.X, position.Y, position.Z
+                        table.insert(coordinatesData, part.Name .. " (Locations - SpawnLoc): " .. x .. ", " .. y .. ", " .. z)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Write all collected coordinates to a single text file
+if #coordinatesData > 0 then
+    local fileContent = table.concat(coordinatesData, "\n")
+    writefile(fileName, fileContent)
+    print("All coordinates saved to " .. fileName)
+else
+    print("No coordinates found to save.")
+end

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Convert Coordinates</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <input type="file" id="fileInput" />
+    <pre id="output"></pre>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.split('\n');
+                const data = {};
+
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        const [key, coords] = line.split(':');
+                        let [x, , z] = coords.split(',').map(coord => parseFloat(coord.trim()));
+                        const category = key.replace('Spawner_', '').trim();
+
+                        if (!data[category]) {
+                            data[category] = [];
+                        }
+
+                        // Flip: Invert z-coordinate only
+                        z = -z;
+
+                        data[category].push([x, z]);
+                    }
+                });
+
+                document.getElementById('output').textContent = JSON.stringify(data, null, 4);
+            };
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
